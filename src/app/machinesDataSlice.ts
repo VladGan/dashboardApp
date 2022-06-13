@@ -17,22 +17,25 @@ interface Program {
 interface Machine {
   name: string;
   id: string;
+  ipAddress: string;
   status: "idle" | "loading" | "failed";
   programs: Program[];
   charts: ChartData[];
 }
 
 export interface MachinesDataState {
-  selected?: { name: string; id: string };
+  selected?: { name: string; id: string; ipAddress: string };
   machines: Machine[];
 }
 
 const initialState: MachinesDataState = {
-  selected: undefined,
+  // first machine selected as asked in task
+  selected: {name: "Machine 1", id: "1", ipAddress: '200.136.20.129'},
   machines: [
     {
       name: "Machine 1",
       id: "1",
+      ipAddress: '200.136.20.129',
       status: "idle",
       programs: [
         {
@@ -145,6 +148,7 @@ const initialState: MachinesDataState = {
     {
       name: "Machine 2",
       id: "2",
+      ipAddress: '45.133.75.234',
       status: "idle",
       charts: [
         {
@@ -179,6 +183,7 @@ const initialState: MachinesDataState = {
     {
       name: "Machine 3",
       id: "3",
+      ipAddress: '177.75.183.25',
       status: "idle",
       charts: [
         {
@@ -226,9 +231,11 @@ export const machinesDataSlice = createSlice({
   reducers: {
     selectMachine: (
       state,
-      action: PayloadAction<{ name: string; id: string }>
+      action: PayloadAction<{ id: string; }>
     ) => {
-      state.selected = action.payload;
+      const selectedMachine = state.machines.find(machine => machine.id === action.payload.id);
+      if (!selectedMachine) return;
+      state.selected = {name: selectedMachine.name, ipAddress: selectedMachine.ipAddress, id: selectedMachine.id};
     },
   },
 });
@@ -247,7 +254,6 @@ export const machinesList = (state: RootState) => {
 
 export const selectedMachineCharts = (state: RootState) => {
   if (!state.machinesData.selected) return undefined;
-  console.log(state.machinesData);
   const selectedMachineID = state.machinesData.selected.id;
   return state.machinesData.machines.find(
     (machine) => machine.id === selectedMachineID

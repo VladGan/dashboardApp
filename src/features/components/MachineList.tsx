@@ -14,9 +14,9 @@ export default function MachineList({
 }) {
   const dispatch = useAppDispatch();
 
-  const machineSelection = (id: string, name: string) => {
+  const machineSelection = (id: string) => {
     return () => {
-      dispatch(selectMachine({ id, name }));
+      dispatch(selectMachine({ id }));
     };
   };
   return (
@@ -26,7 +26,7 @@ export default function MachineList({
       </ListSubheader>
 
       {machines.map((machine) => (
-        <ListItemButton onClick={machineSelection(machine.id, machine.name)}>
+        <ListItemButton onClick={machineSelection(machine.id)}>
           <ListItemIcon>
             <StorageIcon />
           </ListItemIcon>

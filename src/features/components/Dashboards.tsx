@@ -100,6 +100,7 @@ export default function Dashboard() {
   const machines = useAppSelector(machinesList);
   const selectedMachineName = useAppSelector(selectedMachine)?.name;
   const selectedMachineID = useAppSelector(selectedMachine)?.id;
+  const selectedMachineIP = useAppSelector(selectedMachine)?.ipAddress;
 
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -172,6 +173,7 @@ export default function Dashboard() {
 
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Title> {selectedMachineName} </Title>
+            <Typography variant="h6"> IP address:  {selectedMachineIP} </Typography>
             <Grid container spacing={1}>
               {charts &&
                 charts.map((chart, index) => (
