@@ -99,6 +99,7 @@ export default function Dashboard() {
   const charts = useAppSelector(selectedMachineCharts);
   const machines = useAppSelector(machinesList);
   const selectedMachineName = useAppSelector(selectedMachine)?.name;
+  const selectedMachineID = useAppSelector(selectedMachine)?.id;
 
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -173,8 +174,8 @@ export default function Dashboard() {
             <Title> {selectedMachineName} </Title>
             <Grid container spacing={1}>
               {charts &&
-                charts.map((chart) => (
-                  <Grid item xs={6}>
+                charts.map((chart, index) => (
+                  <Grid item xs={6} key={`${selectedMachineID}-${chart.name}-${index}`}>
                     <Paper
                       sx={{
                         p: 2,

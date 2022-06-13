@@ -16,7 +16,7 @@ import useInterval from "../../app/useInterval";
 import moment from "moment";
 
 // the speed of chart update can be adjusted
-const timeTick = 3000;
+const timeTick = 500;
 
 export default function Chart({ chartData }: { chartData: ChartData }) {
   const [data, setData] = useState(chartData.coordinates);
@@ -73,13 +73,13 @@ export default function Chart({ chartData }: { chartData: ChartData }) {
             domain={[0, "dataMax"]}
           >
             <Label
-              position="left"
               style={{
                 textAnchor: "middle",
                 fill: theme.palette.text.primary,
-                paddingTop: "20px",
+                top: "20px",
                 ...theme.typography.body1,
               }}
+              dy={54}
             >
               Time
             </Label>

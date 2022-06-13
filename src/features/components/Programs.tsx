@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 import { useAppSelector } from "../../app/hooks";
-import { selectedMachinePrograms } from "../../app/machinesDataSlice";
+import {selectedMachine, selectedMachinePrograms} from "../../app/machinesDataSlice";
 import moment from "moment";
 import Title from "./Title";
 
@@ -125,6 +125,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 export default function EnhancedTable() {
+  const selectedMachineID = useAppSelector(selectedMachine)?.id;
   const programs = useAppSelector(selectedMachinePrograms);
 
   const [order, setOrder] = React.useState<Order>("asc");
@@ -159,9 +160,9 @@ export default function EnhancedTable() {
           {programs
             .slice()
             .sort(getComparator(order, orderBy))
-            .map((row) => {
+            .map((row, index) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={`${selectedMachineID}-${row.name}-${index}`}>
                   <TableCell>{row.name}</TableCell>
                   <TableCell align="right">
                     {moment(row.startTime).format("DD/MM/YYYY hh:mm:ss")}
