@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import mockedData from "../mocks/mockedData.json";
 
+// some types defined for data structure as well as initial data imported.
+
 export interface Coordinates {
   time: number;
   amount: number
@@ -31,12 +33,16 @@ interface Machine {
 }
 
 export interface MachinesDataState {
+  //only 'light' meta data kept in 'selected machine'
   selected: { name: string; id: string; ipAddress: string };
   machines: Machine[];
 }
 
 const initialState = mockedData as MachinesDataState;
 
+// Only 2 actions defined: select machine and update chart coordinates.
+// In real scenario data coming from the server would be just merged with the state
+// and coordinates would be updated automatically.
 export const machinesDataSlice = createSlice({
   name: "machinesData",
   initialState,
@@ -64,6 +70,7 @@ export const machinesDataSlice = createSlice({
 
 export const { selectMachine, updateData } = machinesDataSlice.actions;
 
+// a couple selectors for easy data access
 export const selectedMachine = (state: RootState) =>
   state.machinesData.selected;
 

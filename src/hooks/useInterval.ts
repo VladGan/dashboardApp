@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 
+// useInterval hook used to avoid closure issues with set interval
 function useInterval(callback: any, delay: number) {
   const savedCallback: any = useRef();
 
