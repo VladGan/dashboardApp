@@ -10,25 +10,28 @@ import {
   CartesianGrid,
 } from "recharts";
 import Title from "./Title";
-import { ChartData } from "../../app/machinesDataSlice";
-import { useState } from "react";
+import {ChartData, selectedMachine, updateData} from "../../app/machinesDataSlice";
 import useInterval from "../../app/useInterval";
 import moment from "moment";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
 // the speed of chart update can be adjusted
 const timeTick = 500;
 
-export default function Chart({ chartData }: { chartData: ChartData }) {
-  const [data, setData] = useState(chartData.coordinates);
+export default function Chart({ chartData }: {
+  chartData: ChartData }) {
+  const dispatch = useAppDispatch();
+  const selectedMachineID = useAppSelector(selectedMachine).id;
   const theme = useTheme();
 
   function validate(timeDifference: number) {
-    setData((prevData) => {
-      const delta = Math.floor(Math.random() * 500) - 250;
-      const newAmount = prevData[prevData.length - 1].amount + delta;
-      const newTime = prevData[prevData.length - 1].time + timeDifference;
-      return [...prevData, { amount: newAmount, time: newTime }].slice(1);
-    });
+    const delta = Math.floor(Math.random() * 500) - 250;
+
+    const oldData = chartData.coordinates;
+    const newAmount = oldData[oldData.length - 1].amount + delta;
+    const newTime = oldData[oldData.length - 1].time + timeDifference;
+    const newCoordinates = [...oldData, { amount: newAmount, time: newTime }].slice(1);
+    dispatch(updateData({ machineID: selectedMachineID, chartID: chartData.id, coordinates: newCoordinates }));
   }
   useInterval(() => {
     validate(timeTick);
@@ -58,7 +61,7 @@ export default function Chart({ chartData }: { chartData: ChartData }) {
       <Title>{chartData.name}</Title>
       <ResponsiveContainer>
         <LineChart
-          data={data}
+          data={chartData.coordinates}
           margin={{
             top: 16,
             right: 16,
@@ -70,7 +73,6 @@ export default function Chart({ chartData }: { chartData: ChartData }) {
             dataKey="time"
             stroke={theme.palette.text.secondary}
             tick={<CustomizedAxisTick />}
-            domain={[0, "dataMax"]}
           >
             <Label
               style={{
@@ -84,6 +86,7 @@ export default function Chart({ chartData }: { chartData: ChartData }) {
               Time
             </Label>
           </XAxis>
+          {/*Make sure that charts are on the same scale*/}
           <YAxis
             stroke={theme.palette.text.secondary}
             style={theme.typography.body2}

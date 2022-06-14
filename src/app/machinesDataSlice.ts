@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
+export interface Coordinates {
+  time: number;
+  amount: number
+}
+
 export interface ChartData {
-  coordinates: { time: number; amount: number }[];
+  id: string;
+  coordinates: Coordinates[];
   name: string;
 }
 
@@ -24,7 +30,7 @@ interface Machine {
 }
 
 export interface MachinesDataState {
-  selected?: { name: string; id: string; ipAddress: string };
+  selected: { name: string; id: string; ipAddress: string };
   machines: Machine[];
 }
 
@@ -106,6 +112,7 @@ const initialState: MachinesDataState = {
             { time: 1655099921471, amount: 820 },
           ],
           name: "CPU usage",
+          id: 'CPUchart'
         },
         {
           coordinates: [
@@ -124,6 +131,7 @@ const initialState: MachinesDataState = {
             { time: 1655099921471, amount: 820 },
           ],
           name: "Memory",
+          id: 'MemoryChart'
         },
         {
           coordinates: [
@@ -142,6 +150,7 @@ const initialState: MachinesDataState = {
             { time: 1655099921471, amount: 820 },
           ],
           name: "Connections",
+          id: 'ConnectionChart'
         },
       ],
     },
@@ -168,6 +177,7 @@ const initialState: MachinesDataState = {
             { time: 1655099921471, amount: 820 },
           ],
           name: "CPU usage",
+          id: 'CPUChart'
         },
       ],
       programs: [
@@ -203,6 +213,7 @@ const initialState: MachinesDataState = {
             { time: 1655099921471, amount: 820 },
           ],
           name: "CPU usage",
+          id: 'CPUChart'
         },
       ],
       programs: [
@@ -237,10 +248,20 @@ export const machinesDataSlice = createSlice({
       if (!selectedMachine) return;
       state.selected = {name: selectedMachine.name, ipAddress: selectedMachine.ipAddress, id: selectedMachine.id};
     },
+    updateData: (
+      state,
+      action: PayloadAction<{ machineID: string; chartID: string; coordinates: Coordinates[]; }>
+    ) => {
+      const selectedMachine = state.machines.find(machine => machine.id === action.payload.machineID);
+      if (!selectedMachine) return;
+      const selectedChart = selectedMachine.charts.find(chart => chart.id === action.payload.chartID);
+      if (!selectedChart) return;
+      selectedChart.coordinates = action.payload.coordinates;
+    },
   },
 });
 
-export const { selectMachine } = machinesDataSlice.actions;
+export const { selectMachine, updateData } = machinesDataSlice.actions;
 
 export const selectedMachine = (state: RootState) =>
   state.machinesData.selected;

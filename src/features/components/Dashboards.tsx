@@ -24,6 +24,7 @@ import {
 } from "../../app/machinesDataSlice";
 import MachineList from "./MachineList";
 import Title from "./Title";
+import {useEffect} from "react";
 
 function Copyright(props: any) {
   return (
@@ -186,7 +187,7 @@ export default function Dashboard() {
                         height: 340,
                       }}
                     >
-                      <Chart chartData={chart} />
+                      <Chart chartData={chart}/>
                     </Paper>
                   </Grid>
                 ))}
