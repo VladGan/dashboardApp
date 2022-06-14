@@ -14,6 +14,7 @@ export default function MachineList({
 }) {
   const dispatch = useAppDispatch();
 
+  //avoiding inline function
   const machineSelection = (id: string) => {
     return () => {
       dispatch(selectMachine({ id }));
@@ -26,7 +27,7 @@ export default function MachineList({
       </ListSubheader>
 
       {machines.map((machine) => (
-        <ListItemButton onClick={machineSelection(machine.id)}>
+        <ListItemButton key={machine.id} onClick={machineSelection(machine.id)}>
           <ListItemIcon>
             <StorageIcon />
           </ListItemIcon>

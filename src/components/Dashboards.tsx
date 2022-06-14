@@ -24,8 +24,9 @@ import {
 } from "../slices/machinesDataSlice";
 import MachineList from "./MachineList";
 import Title from "./Title";
-import {useEffect} from "react";
 
+
+// Some default components from MUI examples.
 function Copyright(props: any) {
   return (
     <Typography
@@ -97,24 +98,32 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 export default function Dashboard() {
+  // I put all the data into redux storage according to the task.
+  // Made a couple of selectors to quickly get data that being
+  // used multiple times in different places.
   const charts = useAppSelector(selectedMachineCharts);
   const machines = useAppSelector(machinesList);
-  const selectedMachineName = useAppSelector(selectedMachine)?.name;
-  const selectedMachineID = useAppSelector(selectedMachine)?.id;
-  const selectedMachineIP = useAppSelector(selectedMachine)?.ipAddress;
+  const {
+    name: selectedMachineName,
+    id: selectedMachineID,
+    ipAddress: selectedMachineIP
+  } = useAppSelector(selectedMachine);
 
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  // parts of dashboard taken from example of MUI usage.
+  // This component could have been broken down into smaller parts in a bigger project as well as moved to a
+  // separate screen component rather than generic component.
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: "24px", // keep right padding when drawer closed
+              pr: "24px",
             }}
           >
             <IconButton

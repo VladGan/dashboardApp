@@ -142,6 +142,7 @@ export default function EnhancedTable() {
 
   if (!programs) return <></>;
 
+  // some table taken from MUI examples
   return (
     <TableContainer>
       <Title>Programs</Title>

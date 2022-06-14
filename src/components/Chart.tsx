@@ -18,12 +18,19 @@ import {useAppDispatch, useAppSelector} from "../hooks/reduxHooks";
 // the speed of chart update can be adjusted
 const timeTick = 500;
 
+// chart data is passes to make the component easier to understand and reuse => given coordinates,
+// it renders them. But could
+// have just pass chart id and get coordinates from the store.
 export default function Chart({ chartData }: {
   chartData: ChartData }) {
+  // some of the chart's update related logic. In real case this data would come from web socket connection
+  // and won't be handled here in 'dumb' component.
   const dispatch = useAppDispatch();
   const selectedMachineID = useAppSelector(selectedMachine).id;
   const theme = useTheme();
 
+  // Takes time difference and updates previous array of coordinates with a new one (cutting the oldest one out)
+  // Emulates the data package from the server.
   function validate(timeDifference: number) {
     const delta = Math.floor(Math.random() * 500) - 250;
 
@@ -33,6 +40,9 @@ export default function Chart({ chartData }: {
     const newCoordinates = [...oldData, { amount: newAmount, time: newTime }].slice(1);
     dispatch(updateData({ machineID: selectedMachineID, chartID: chartData.id, coordinates: newCoordinates }));
   }
+
+  // useInterval is a custom hook from Dan Abramov to emulate JS's setInterval and avoid closure issues caused by the
+  // function passed to it.
   useInterval(() => {
     validate(timeTick);
   }, timeTick);
@@ -50,12 +60,14 @@ export default function Chart({ chartData }: {
           transform="rotate(-90)"
           fontSize={12}
         >
+          {/*Custom tick to display time.*/}
           {moment(payload.value).format("hh:mm:ss")}
         </text>
       </g>
     );
   };
 
+  // simple chart from recharts examples.
   return (
     <React.Fragment>
       <Title>{chartData.name}</Title>
@@ -86,7 +98,6 @@ export default function Chart({ chartData }: {
               Time
             </Label>
           </XAxis>
-          {/*Make sure that charts are on the same scale*/}
           <YAxis
             stroke={theme.palette.text.secondary}
             style={theme.typography.body2}
