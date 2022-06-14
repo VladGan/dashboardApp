@@ -16,12 +16,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Chart from "./Chart";
 import Programs from "./Programs";
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../app/hooks";
 import {
   machinesList,
   selectedMachine,
   selectedMachineCharts,
-} from "../../app/machinesDataSlice";
+} from "../app/machinesDataSlice";
 import MachineList from "./MachineList";
 import Title from "./Title";
 import {useEffect} from "react";
