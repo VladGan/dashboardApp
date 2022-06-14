@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/dashboardApp/static/js/main.a9978645.js",
+    "main.js": "/dashboardApp/static/js/main.8c2bc4ee.js",
     "index.html": "/dashboardApp/index.html",
-    "main.a9978645.js.map": "/dashboardApp/static/js/main.a9978645.js.map"
+    "main.8c2bc4ee.js.map": "/dashboardApp/static/js/main.8c2bc4ee.js.map"
   },
   "entrypoints": [
-    "static/js/main.a9978645.js"
+    "static/js/main.8c2bc4ee.js"
   ]
 }
