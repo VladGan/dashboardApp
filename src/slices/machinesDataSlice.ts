@@ -38,6 +38,8 @@ export interface MachinesDataState {
   machines: Machine[];
 }
 
+// the whole data kept in one tree like object to potentially allow it to be merged with updated data from the
+// web socket connection from the server without complex logic (automatic deep merge of 2 objects).
 const initialState = mockedData as MachinesDataState;
 
 // Only 2 actions defined: select machine and update chart coordinates.
