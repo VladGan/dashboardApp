@@ -4,8 +4,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import StorageIcon from "@mui/icons-material/Storage";
 import ListItemText from "@mui/material/ListItemText";
-import { selectMachine } from "../app/machinesDataSlice";
-import { useAppDispatch } from "../app/hooks";
+import { selectMachine } from "../slices/machinesDataSlice";
+import { useAppDispatch } from "../hooks/reduxHooks";
 
 export default function MachineList({
   machines,

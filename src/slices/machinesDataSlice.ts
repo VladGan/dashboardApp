@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "./store";
-import mockedData from "./mockedData.json";
+import { RootState } from "../store";
+import mockedData from "../mocks/mockedData.json";
 
 export interface Coordinates {
   time: number;

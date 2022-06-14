@@ -10,10 +10,10 @@ import {
   CartesianGrid,
 } from "recharts";
 import Title from "./Title";
-import {ChartData, selectedMachine, updateData} from "../app/machinesDataSlice";
-import useInterval from "../app/useInterval";
+import {ChartData, selectedMachine, updateData} from "../slices/machinesDataSlice";
+import useInterval from "../hooks/useInterval";
 import moment from "moment";
-import {useAppDispatch, useAppSelector} from "../app/hooks";
+import {useAppDispatch, useAppSelector} from "../hooks/reduxHooks";
 
 // the speed of chart update can be adjusted
 const timeTick = 500;

@@ -3,7 +3,7 @@ import App from "./App";
 import { render } from 'react-dom';
 import { Provider } from "react-redux";
 import CssBaseline from "@mui/material/CssBaseline";
-import {store} from "./app/store";
+import {store} from "./store";
 
 const container = document.getElementById('root');
 render(

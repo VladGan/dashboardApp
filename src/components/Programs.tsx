@@ -8,8 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
-import { useAppSelector } from "../app/hooks";
-import {selectedMachine, selectedMachinePrograms} from "../app/machinesDataSlice";
+import { useAppSelector } from "../hooks/reduxHooks";
+import {selectedMachine, selectedMachinePrograms} from "../slices/machinesDataSlice";
 import moment from "moment";
 import Title from "./Title";
 
