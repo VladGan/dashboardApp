@@ -30,7 +30,7 @@ export default function Chart({ chartData }: {
   const theme = useTheme();
 
   // Takes time difference and updates previous array of coordinates with a new one (cutting the oldest one out)
-  // Emulates the data package from the server.
+  // Emulates new data package from the server.
   function validate(timeDifference: number) {
     const delta = Math.floor(Math.random() * 500) - 250;
 
