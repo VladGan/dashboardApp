@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
+import mockedData from "./mockedData.json";
 
 export interface Coordinates {
   time: number;
@@ -33,7 +34,6 @@ export interface MachinesDataState {
   selected: { name: string; id: string; ipAddress: string };
   machines: Machine[];
 }
-import mockedData from "./mockedData.json";
 
 const initialState = mockedData as MachinesDataState;
 
